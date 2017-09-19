@@ -1,4 +1,4 @@
-FROM node:7.9.0
+FROM node:v8.5.0
 
 # Install other thrid party packages required by the app
 RUN npm install
