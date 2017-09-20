@@ -32,16 +32,15 @@ class Server {
         this.app.all('*', middleware.pageNotFound);
         this.app.use(middleware.errorHandler);
         let connectdb = await repository.sync();
-            // .then(() => {
-            if(connectdb){
-                let server = this.app.listen(appConfig.port,
-                    appConfig.host, () => {
-                        util.Log('------------------------------------------New Worker Launched------');
-                        util.Log(
-                            `App (With PID : ${process.pid}) is ready on http://${server.address().address}:${server.address().port}`
-                        );
-                    });
-            };
+        if(connectdb){
+             let server = this.app.listen(appConfig.port,
+                  appConfig.host, () => {
+                     util.Log('------------------------------------------New Worker Launched------');
+                     util.Log(
+                         `App (With PID : ${process.pid}) is ready on http://${server.address().address}:${server.address().port}`
+                     );
+                 });
+         };
     }
 }
 Server.bootstrap().app;
