@@ -4,13 +4,13 @@ const UserSchema =  require('./models/user');
 const hashSync  =  require('bcrypt').hashSync;
 
  class Repository {
-    constructor() {
+    constructor(_sequelize,_models) {
         let collections = {
             User: 'User'
         };
-        let _sequelize = new Sequelize(config.db_name, config.username,
+        this._sequelize = new Sequelize(config.db_name, config.username,
             config.password, config);
-        let _models = {
+        this._models = {
             User: this._sequelize.define('User', UserSchema, {
                 freezeTableName: true,
                 paranoid: true
@@ -21,7 +21,7 @@ const hashSync  =  require('bcrypt').hashSync;
         });
         let connectDb = await sync();
     }
-    async sync() {
+    sync() {
         return this._models.User.sync();
     }
     _getCollection(collectionName) {
@@ -48,4 +48,3 @@ const hashSync  =  require('bcrypt').hashSync;
 }
 const repository = new Repository();
 module.exports =  repository;
-module.exports =  connectDb;
